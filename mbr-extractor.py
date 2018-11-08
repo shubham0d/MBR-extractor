@@ -32,7 +32,7 @@ def parseInfo(rawData):
 
 	print ("Parsing info....")
 	print ("------------------------")
-	print ("Disk Signature:" +rawData[440] + rawData[441] + rawData[442] +rawData[443])
+	print ("Disk Signature:" +rawData[443] + rawData[442] + rawData[441] +rawData[440])
 
 	print("Possible MBR scheme", end=':')
 	if (rawData[218] == "00" and rawData[219] == "00"):
