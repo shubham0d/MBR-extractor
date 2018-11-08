@@ -27,18 +27,37 @@ def dumpRawData(rawData):
 
 
 def parseInfo(rawData):
-	print ("Parsing info")
+	if (checkSignature(rawData) != True):
+		exit
+
+	print ("Parsing info....")
+	print ("------------------------")
+	print ("Disk Signature:" +rawData[440] + rawData[441] + rawData[442] +rawData[443])
+
+	print("Possible MBR scheme", end=':')
+	if (rawData[218] == "00" and rawData[219] == "00"):
+		print(" Modern standard MBR found.")
+	elif (rawData[428] == "78" and rawData[429] == "56"):
+		print (" Advanced Active Partitions (AAP) MBR found")
+	elif (rawData[0] == "eb" and rawData[2] == "4e" and rawData[3] == "45" and rawData[4] == "57" and rawData[6] == "4c" and raw_input[7] == "44" and rawData[8] == "52"):
+		print (" NEWLDR MBR found.")
+	elif (rawData[380] == "5a" and rawData[381] == "a5"):
+		print (" MS-DOS MBR found.")
+	elif (rawData[252] == "aa" and rawData[253] == "55"):
+		print (" Disk Manager MBR")
+	else:
+		print (" Generic MBR found")
 
 
 
 def checkSignature(rawData):
 	print ("Checking Signature.....")
-	if (rawData[511] == "aa" and rawData[510] == "55" and rawData[444] == "00" and rawData[445] == "00"):
+	if (rawData[511] == "aa" and rawData[510] == "55" and rawData[444] == "00" and rawData[445] == "00" or rawData[444] == "5a" or rawData[445] == "5a"):
 		print("MBR found on Sector 0")
-		print (rawData[444]+rawData[445])
+		return True
 	else:
-		print("MBR signature doesn't match (MBR may not present)")
-
+		print("MBR signatures doesn't match (MBR may not present)")
+		return False
 
 def main():
 	rawData = rawMbrData()
