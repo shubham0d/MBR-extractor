@@ -13,7 +13,7 @@ Python 3
 > *diskpath* is optional default is /dev/* in case of Linux
 > and mac,\\.\PhysicalDrive* in case of windows
 <br/>
-**cmd**
+cmd can be
 
   **rawdump** - Dump the complete MBR sector of the disk specified <br/>
   **parseinfo** - Parse and MBR sector and interpret its info<br/>
