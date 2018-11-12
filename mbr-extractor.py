@@ -66,6 +66,9 @@ def parseInfo(rawData):
 	else:
 		print (" Generic MBR found")
 
+	// Parsing Partition infos
+	if ((rawData[446] == "00" or rawData[446] == "80") and (rawData[447] != "00" or rawData[448] != "00" or rawData[449] !="00") and rawData != "00"):
+		print ("1st Partition found. ")
 
 
 def checkSignature(rawData):
