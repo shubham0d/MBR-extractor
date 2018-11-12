@@ -6,10 +6,28 @@ import sys
 
 #extract the 512 bytes from /dev/sda
 def rawMbrData():
-	with open('/dev/sda', 'rb') as fp:
-		hex_list = ["{:02x}".format(ord(c)) for c in fp.read(512)]
-	fp.close();
-	return hex_list
+	possible_drives = [
+        r"\\.\PhysicalDrive1", # Windows
+        r"\\.\PhysicalDrive2",
+        r"\\.\PhysicalDrive3",
+        "/dev/mmcblk0", # Linux - MMC
+        "/dev/mmcblk1",
+        "/dev/mmcblk2",
+        "/dev/sda", # Linux - Disk
+        "/dev/sdb",
+        "/dev/sdc",
+        "/dev/disk1", #MacOSX
+        "/dev/disk2",
+        "/dev/disk3",
+	]
+	for drive in possible_drives:
+		try:
+			with open(drive, 'rb') as fp:
+				hex_list = ["{:02x}".format(ord(c)) for c in fp.read(512)]
+			fp.close();
+			return hex_list
+		except:
+			pass
 
 def dumpRawData(rawData):
 	print ("Dumping raw MBR data.....\n")
@@ -68,7 +86,7 @@ def main():
 	else:
 		if sys.argv[1] == "rawdump":
 			dumpRawData(rawData)
-		elif sys.argv[1] == "info":
+		elif sys.argv[1] == "parseinfo":
 			parseInfo(rawData)
 		elif sys.argv[1] == "check":
 			checkSignature(rawData)
