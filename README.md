@@ -13,3 +13,4 @@ Python 3
 **rawdump** - Dump the complete MBR sector of the disk specified <br/>
 **parseinfo** - Parse and MBR sector and interpret its info<br/>
 **check** - Check if the sector is valid MBR sector (may give false result)<br/>
+*diskpath* is optional
