@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from __future__ import print_function
 import sys
-
+import partitionID
 
 
 #extract the 512 bytes from /dev/sda
@@ -66,10 +66,11 @@ def parseInfo(rawData):
 	else:
 		print (" Generic MBR found")
 
-	// Parsing Partition infos
+	# Parsing Partition infos
 	if ((rawData[446] == "00" or rawData[446] == "80") and (rawData[447] != "00" or rawData[448] != "00" or rawData[449] !="00") and rawData != "00"):
 		print ("1st Partition found. ")
-
+		partitionTypes = partitionID.partitionIdList(rawData[450])
+		print ("Possible partition type: "+ partitionTypes)
 
 def checkSignature(rawData):
 	print ("Checking Signature.....")
