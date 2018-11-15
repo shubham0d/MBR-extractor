@@ -3,7 +3,15 @@ from __future__ import print_function
 import sys
 import partitionID
 
-
+def helpText():
+	print ("Usage: $sudo python mbr-extractor.py <cmd> <device>")
+	print ("Parameters:")
+	print ("	cmd:")
+	print ("		rawdump - dump hex data of MBR sector")
+	print ("		parseinfo - extract the MBR and interprete it.")
+	print ("		check - check whether the first sector is a valid MBR or not.")
+	print ("	device:")
+	print ("		optional device name from where MBR data need to extract(default set to your harddisk)")
 #extract the 512 bytes from /dev/sda
 def rawMbrData():
 	possible_drives = [
@@ -100,7 +108,7 @@ def parseInfo(rawData):
 	else:
 		print("-----------------------End partition list-----------------------")
 		return
-	#Parsing Partition info for 2nd partition
+	#Parsing Partition info for 3rd partition
 	if ((rawData[478] == "00" or rawData[478] == "80") and (rawData[479] != "00" or rawData[480] !="00" or rawData[481] != "00") and rawData[482] != "00"):
 		print ("---------------------------3rd Partition found---------------------------")
 		partitionTypes = partitionID.partitionIdList(rawData[482])
@@ -117,6 +125,7 @@ def parseInfo(rawData):
 	else:
 		print("-----------------------End partition list-----------------------")
 		return
+	#Parsing Partition info for 4th partition
 	if ((rawData[494] == "00" or rawData[494] == "80") and (rawData[495] != "00" or rawData[496] !="00" or rawData[497] != "00") and rawData[498] != "00"):
 		print ("---------------------------4th Partition found---------------------------")
 		partitionTypes = partitionID.partitionIdList(rawData[498])
@@ -148,7 +157,8 @@ def main():
 	#print rawData
 	if len(sys.argv) == 1:
 		#print help message
-		print ("Less argument")
+		helpText()
+		return
 	else:
 		if sys.argv[1] == "rawdump":
 			dumpRawData(rawData)
