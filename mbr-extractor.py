@@ -13,7 +13,17 @@ def helpText():
 	print ("	diskpath:")
 	print ("		optional disk name from where MBR data need to extract(default set to your harddisk)")
 #extract the 512 bytes from /dev/sda
-def rawMbrData():
+def rawMbrData(diskpath = ""):
+	if (diskpath != ""):
+		try:
+			with open(diskpath, 'rb') as fp:
+				hex_list = ["{:02x}".format(ord(c)) for c in fp.read(512)]
+			fp.close();
+			return hex_list
+		except:
+			print ("Input file/device not found")
+			print ("Terminating..!!!")
+			exit()
 	possible_drives = [
         r"\\.\PhysicalDrive1", # Windows
         r"\\.\PhysicalDrive2",
