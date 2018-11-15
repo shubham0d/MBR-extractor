@@ -10,8 +10,8 @@ def helpText():
 	print ("		rawdump - dump hex data of MBR sector")
 	print ("		parseinfo - extract the MBR and interprete it.")
 	print ("		check - check whether the first sector is a valid MBR or not.")
-	print ("	device:")
-	print ("		optional device name from where MBR data need to extract(default set to your harddisk)")
+	print ("	diskpath:")
+	print ("		optional disk name from where MBR data need to extract(default set to your harddisk)")
 #extract the 512 bytes from /dev/sda
 def rawMbrData():
 	possible_drives = [
