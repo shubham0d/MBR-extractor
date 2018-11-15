@@ -153,13 +153,16 @@ def checkSignature(rawData):
 		return False
 
 def main():
-	rawData = rawMbrData()
-	#print rawData
 	if len(sys.argv) == 1:
 		#print help message
 		helpText()
 		return
 	else:
+		if (len(sys.argv)) == 3:
+			rawData = rawMbrData(sys.argv[2])
+		else:
+			rawData = rawMbrData()
+
 		if sys.argv[1] == "rawdump":
 			dumpRawData(rawData)
 		elif sys.argv[1] == "parseinfo":
@@ -168,6 +171,7 @@ def main():
 			checkSignature(rawData)
 		else:
 			print ("Try again")
+			helpText()
 
 
 if __name__== "__main__":
