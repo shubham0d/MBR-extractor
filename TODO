@@ -1,0 +1,12 @@
+
+
+Priority
+
+[ ] Add GPT partition support
+[ ] Put the partition parsing in function
+
+
+Additional
+[ ] Add code section in mbr parsing feature (using either pwntools or pydbg)
+[ ] Add support to give size in GB if size is large
+[ ] Color the string "1st Partition found" and so on
